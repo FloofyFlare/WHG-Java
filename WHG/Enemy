@@ -1,0 +1,9 @@
+public class Enemy {
+ private PVector pos, vel, acc;
+ private final int SIZE =30, SPEED =5;
+ 
+  public Enemy(int x, int y) {
+    pos = new PVector (x,y);
+    
+  }
+}
