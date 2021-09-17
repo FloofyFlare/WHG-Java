@@ -1,30 +1,55 @@
 Player player;
-Enemy[] enemies = new Enemy[20];
+Enemy[] enemies = new Enemy[50]; //initialized array
 
-public void setup(){
+public void setup() {
   size(800,400);
   player = new Player(50,height/2);
-  enemy = new Enemy(4,5);
   spawnEnemies();
 }
 
-public void draw(){
+public void draw() {
   background(200);
   player.show();
   player.move();
-  for (int i = 0; i < 20; i++) {
-     enemies[i].show();
+  for (int i = 0; i < enemies.length; i++) {
+    enemies[i].show();
+    enemies[i].move();
+    enemies[i].collideWorldBounds();
   }
-  
-  
 }
+
 public void keyPressed() {
   if (key == 'w') {
-    player.vy = -player.SPEED;
+    player.vel.y = -player.SPEED;
+  }
+  if (key == 'a') {
+    player.vel.x = -player.SPEED;
+  }
+  if (key == 's') {
+    player.vel.y = player.SPEED;
+  }
+  if (key == 'd') {
+    player.vel.x = player.SPEED;
   }
 }
-private void spawnEnemies(){
-  for (int i = 0; i < 20; i++) {
-     enemies[i] = new Enemy((int)Math.random()*50,(int)Math.random()*50);
+
+public void keyReleased() {
+  if (key == 'w') {
+    player.vel.y = 0;
+  }
+  if (key == 'a') {
+    player.vel.x = 0;
+  }
+  if (key == 's') {
+    player.vel.y = 0;
+  }
+  if (key == 'd') {
+    player.vel.x = 0;
+  }
+}
+
+private void spawnEnemies() {
+  for (int i = 0; i < enemies.length; i++) {
+    enemies[i] = new Enemy((int)(Math.random()*width),(int)(Math.random()*height));
   }
 }
